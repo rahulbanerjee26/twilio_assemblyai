@@ -1,8 +1,13 @@
+'''
+    Function to work with
+    the Twilio API
+'''
+
 import os
 from dotenv import load_dotenv
 from twilio.rest import Client
 
-def make_phone_call(client,from_phone_number,to_phone_number):
+def make_phone_call(client_,from_phone_number_,to_phone_number_):
     '''
     Parameter:
         client: A twillio client instance
@@ -16,11 +21,11 @@ def make_phone_call(client,from_phone_number,to_phone_number):
     <Record timeout="5"/>
     </Response>'''
 
-    call = client.calls.create(
+    call = client_.calls.create(
                             record = True,
                             twiml=phone_call,
-                            from_=from_phone_number,
-                            to = to_phone_number
+                            from_=from_phone_number_,
+                            to = to_phone_number_
                         )
 
     return call.sid
@@ -36,5 +41,3 @@ if __name__ == '__main__':
     call_sid = make_phone_call(client, from_phone_number, to_phone_number)
 
     print(f'Call sid is {call_sid}')
-
-
