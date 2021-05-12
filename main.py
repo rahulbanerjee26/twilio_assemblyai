@@ -6,14 +6,17 @@
 import os
 from dotenv import load_dotenv
 from transcribe import get_transcribe_id, get_text
-
+from call import get_recording_sid
 
 # Reading Data from .env file
 load_dotenv()
 account_sid = os.environ.get('account_sid')
-recording_sid = os.environ.get('recording_sid')
+call_sid = os.environ.get('call_sid')
+auth_token = os.environ.get('auth_token')
 assemblyai_token = os.environ.get('assemblyai_token')
-recording_endpoint = 'https://api.twilio.com/2010-04-01/Accounts/' \
+recording_sid = get_recording_sid(account_sid, auth_token, call_sid)
+print(f"Recording Sid: {recording_sid}")
+recording_endpoint = 'https://api.twilio.com/2010-04-01/Accounts/'\
 + f'{account_sid}/Recordings/{recording_sid}.mp3'
 
 transcribe_id = get_transcribe_id(assemblyai_token,recording_endpoint)
